@@ -1,9 +1,36 @@
 <!-- Edit Quote -->
 <template>
-  <h3 class="slds-page-header__title">Welcome to quote {quoteData.name}!</h3>
-  Quote Project Ends On:
-  <lightning-formatted-date-time
-    value={quoteData.endDate}
-    time-zone="UTC"
-  ></lightning-formatted-date-time>
+  <!-- Spinner Starts -->
+  <template if:false={isLoaded}>
+    <div  class="slds-spinner_containe">
+      <lightning-spinner
+          alternative-text="Loading..." variant="brand">
+      </lightning-spinner>
+    </div>
+  </template>
+  <!-- Spinner Ends -->
+  <template if:true={isQuoteLoaded}>
+    <h3 class="slds-page-header__title">Welcome to quote {quoteData.Name}!</h3>
+  </template>
+  <!-- Quote Date UI Starts -->
+  <template if:true={isQuoteLoaded}>
+    <lightning-layout multiple-rows="true">
+      <lightning-layout-item padding="around-small" size="6">
+        <lightning-input type="date" name="input2"  data-id="startDate" label="Start Date" value={quoteData.startDate} onchange={setQuoteData}></lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item padding="around-small" size="6"></lightning-layout-item>
+      <lightning-layout-item padding="around-small" size="6">
+        <lightning-input type="date" name="input2" label="End Date" data-id="endDate" value={quoteData.endDate} onchange={setQuoteData}></lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item padding="around-small" size="6"></lightning-layout-item>
+      <lightning-layout-item padding="around-small" size="6">
+        <lightning-button
+            variant="brand"
+            type="button"
+            label="Save" onclick={handelSaveQuote}
+          ></lightning-button>
+      </lightning-layout-item>
+    </lightning-layout>
+  </template>
+  <!-- Quote Date UI Ends -->
 </template>
